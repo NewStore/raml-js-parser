@@ -181,7 +181,8 @@ class @RamlParser
         node.value.forEach(([kind, item]) ->
           if item instanceof nodes.FileNode
             # schema inline inclusions
-            schemaNodes.push(item)
+            if kind.value == 'schema' && definedSchemaNames.indexOf(item.value) == -1
+              schemaNodes.push(item)
           else if item instanceof nodes.ScalarNode
             if kind.value == 'schema' && definedSchemaNames.indexOf(item.value) == -1
               # schema inline definitions
